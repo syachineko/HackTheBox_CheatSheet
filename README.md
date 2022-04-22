@@ -218,6 +218,21 @@ dirbと同様に、ディレクトリ総当たりだが1階層のみで早い
 gobuster dir -e -u http://10.10.10.197:8080/ --wildcard  -w /usr/share/wordlists/dirb/common.txt
 ```
 
+## 脆弱性確認
+### searchsploit
+脆弱性を検索できる
+```
+kali@kali:~/SyachinekoLab/workspace/HTB/Lame$ searchsploit samba 3.0.20
+------------------------------------------------------------------------------------------------------------------ ----------------------------------------
+ Exploit Title                                                                                                    |  Path
+                                                                                                                  | (/usr/share/exploitdb/)
+------------------------------------------------------------------------------------------------------------------ ----------------------------------------
+Samba 3.0.20 < 3.0.25rc3 - 'Username' map script' Command Execution (Metasploit)                                  | exploits/unix/remote/16320.rb
+Samba < 3.0.20 - Remote Heap Overflow                                                                             | exploits/linux/remote/7701.txt
+------------------------------------------------------------------------------------------------------------------ ----------------------------------------
+Shellcodes: No Result
+```
+
 ## Password Crack
 ### JohnTheRipper
 パスワード解析
