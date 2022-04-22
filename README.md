@@ -13,6 +13,7 @@ gobuster dir -e -u ${TARGET} --wildcard  -w /usr/share/wordlists/dirb/common.txt
 
 ## (足がかり)Initial Footprint
 ### 実績ありポートとサービス(特別脆弱性を突いた例)
+```
 21/tcp:ftp
 　接続して、適当なユーザで試す＋anonymousユーザ接続もあり　
 　接続成功後はリバースシェル等モジュールを送り込める
@@ -28,10 +29,11 @@ gobuster dir -e -u ${TARGET} --wildcard  -w /usr/share/wordlists/dirb/common.txt
 139/tcp:netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
 445/tcp:netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
 　Samba 3.0.20 < 3.0.25rc3 - 'Username' map script' Command Execution の脆弱性あり [SMB匿名接続](#小技色々)
-
+```
 
 
 ### 着目すべきポート
+```
 80/tcp:http, 443/tcp:https
 　->Webサイトにある脆弱性を確認する
 
@@ -47,7 +49,10 @@ gobuster dir -e -u ${TARGET} --wildcard  -w /usr/share/wordlists/dirb/common.txt
 389, 636:LDAP
 　->ActiveDirectoryに関する脆弱性があるかも
  
+ ```
+ 
 ## その他ポート
+```
 22/tcp:ssh OpenSSH 5.3p1 Debian 3ubuntu7 (Ubuntu Linux; protocol 2.0
 22/tcp open ssh OpenSSH 3.9p1 (protocol 1.99)
 23/tcp :telnet Linux telnetd
@@ -80,8 +85,10 @@ gobuster dir -e -u ${TARGET} --wildcard  -w /usr/share/wordlists/dirb/common.txt
 8070/tcp:ucs-isc?
 8080/tcp:http Apache Tomcat/Coyote JSP engine 1.1
 10000/tcp:http MiniServ 0.01 (Webmin httpd)
+ ```
  
 ### Webの確認ポイント
+
 
 ## (一般権限奪取)user level privilege
 ### フォルダ/ファイルあさり
@@ -339,6 +346,14 @@ wordpressはそのもののバージョンから脆弱性を探したり、wp-co
 wpscan --url <url> --enumerate p,u
 ```
 
+## FireFox拡張機能
+### FoxyProxy
+```
+```
+
+### 
+
+
 # 小技色々
 ## SMB匿名接続
 ```
@@ -373,7 +388,12 @@ echo "test ALL=(ALL) ALL " >> /etc/sudoers
 # これでsshができればバックドアとなる
 ```
 
+## curlによるアクセス
+
+
 # 知らないことリスト
+
+# つらつらお勉強したことメモ
 
 # WriteUp
 ## HackTheBox
