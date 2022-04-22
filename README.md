@@ -158,13 +158,11 @@ msf5 post(multi/recon/local_exploit_suggester) >
  
 ## (特権昇格)privilege escalation
 ### 脆弱性を確認する手段
-Linuxの場合、以下ツールを利用
+Linuxの場合、以下ツールを利用  
+[LinEnum](https://github.com/rebootuser/LinEnum)　[詳細](#内部探査)  
 
-[LinEnum](https://github.com/rebootuser/LinEnum)　[詳細](#内部探査)
-
-Windowsの場合、以下ツールを利用
-　
-[Windows-Exploit-Suggester](https://github.com/AonCyberLabs/Windows-Exploit-Suggester)　[詳細](#内部探査)
+Windowsの場合、以下ツールを利用  
+[Windows-Exploit-Suggester](https://github.com/AonCyberLabs/Windows-Exploit-Suggester)　[詳細](#内部探査)  
  
 ### Kernel Exploit
 以下コマンドでSUDO権限を確認
@@ -172,7 +170,7 @@ Windowsの場合、以下ツールを利用
 sudo -l
 ```
 
-その後以下のサイトで検索し、SUDO実行時に権限昇格が行えるか確認
+その後以下のサイトで検索し、SUDO実行時に権限昇格が行えるか確認  
 [GTFOBins](https://gtfobins.github.io/)
 
 # ツール色々
@@ -247,6 +245,12 @@ fcrackzip -u -p <passwdFile> <File>
 fcrackzip -u -D -p <Dir/passwdFile> <File>
 ```
 
+## パケット
+### tshark
+パケットを解析できる
+```
+$ tshark -r 0.pcap
+```
 
 ## Exploit
 ### msfvenom
@@ -343,8 +347,10 @@ Active sessions
 Linuxの内部探査をしてくれるツール
 特に着目すべき部分
 ```
-LinEnum.sh
+capabilities
+cap_setuidが立っているものを確認し、GTFOBinsで権限昇格可能か確認 
 ```
+[権限昇格](#(特権昇格)privilege escalation)
 
 ### Windows-Exploit-Suggester
 Windowsの内部探査をしてくれるツール
@@ -363,10 +369,12 @@ wpscan --url <url> --enumerate p,u
 
 ## FireFox拡張機能
 ### FoxyProxy
+簡易に切り替えられるProxy、BurpSuiteと組み合わせて使うことも
 ```
 ```
 
-### 
+### Wappalyzer
+サイトを構成するフレームワークなどを確認できるツール
 
 
 # 小技色々
