@@ -1,4 +1,5 @@
 1.nmap
+
 ```
 Nmap scan report for Bep.htb (10.10.10.7)
 Host is up (0.24s latency).
@@ -53,5 +54,5 @@ Service Info: Hosts:  beep.localdomain, 127.0.0.1, example.com, localhost; OS: U
 
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 1000.22 seconds
-
 ```
+
