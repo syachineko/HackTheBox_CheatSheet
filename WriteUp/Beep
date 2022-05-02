@@ -84,7 +84,17 @@ Nmap done: 1 IP address (1 host up) scanned in 1000.22 seconds
 |_http-title: Site doesn't have a title (text/html; Charset=iso-8859-1).
 Service Info: Hosts:  beep.localdomain, 127.0.0.1, example.com, localhost; OS: Unix
 ```
-　Web用ポート　Apache2.2.3を使用、
+　Web用ポート　Apache2.2.3を使用
+　10000ポートには見慣れないMiniservというものがある　Webmin？
+  Elastix：
+　>Elastixは、AsteriskベースのPBXに使いやすいインターフェースを付加するためにベストなツール群を統合化したアプライアンスソフトウェアです。また、オープンソースのテレフォニーのためのベストなソフトウェアパッケージとするために、独自のユーティリティの設定も追加されています。
+　引用元：https://ja.osdn.net/projects/sfnet_elastix/
+  
+  Webmin：
+  >WebminはWebベースのUnix用システム管理ツールです
+  引用元：https://www.lac.co.jp/lacwatch/alert/20050920_000090.html
+  　デフォルトのID/PWの組み合わせはなさそう
+ 
  　
 ```
 25/tcp    open  smtp       Postfix smtpd
