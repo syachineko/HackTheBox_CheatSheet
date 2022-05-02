@@ -88,6 +88,14 @@ gobuster dir -e -u ${TARGET} --wildcard  -w /usr/share/wordlists/dirb/common.txt
  ```
  
 ### Webの確認ポイント
+#### LFIの確認ポイント
+以下は確認したことあり
+```
+/etc/passwd
+/etc/shadow
+/etc/amportal.conf(FreePBX)
+/etc/my.cnf
+```
 
 
 ## (一般権限奪取)user level privilege
