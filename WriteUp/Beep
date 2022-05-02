@@ -102,6 +102,8 @@ Service Info: Hosts:  beep.localdomain, 127.0.0.1, example.com, localhost; OS: U
 　要調査
 　pop3ポート　Cyrus
 　参考：https://atmarkit.itmedia.co.jp/ait/articles/0203/30/news001.html
+　参考：http://linux.kororo.jp/cont/server/smtp_auth.php（PostFixとSMTPの関係）
+ 
 
 ```
 111/tcp   open  rpcbind    2 (RPC #100000)
