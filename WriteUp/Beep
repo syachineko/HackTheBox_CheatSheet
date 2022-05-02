@@ -172,6 +172,16 @@ view-source:https://10.10.10.7/vtigercrm/graph.php?current_language=../../../../
 ???なぜこのファイルを取得したか
 
 クレデンシャル情報は以下
+AMPDBHOST=localhost
+AMPDBENGINE=mysql
+# AMPDBNAME=asterisk
+AMPDBUSER=asteriskuser
+# AMPDBPASS=amp109
+AMPDBPASS=jEhdIekWmdjE
+AMPENGINE=asterisk
+AMPMGRUSER=admin
+#AMPMGRPASS=amp111
+AMPMGRPASS=jEhdIekWmdjE
 
 
 
