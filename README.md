@@ -419,6 +419,11 @@ echo "test ALL=(ALL) ALL " >> /etc/sudoers
 # これでsshができればバックドアとなる
 ```
 
+## 改行コード変換
+```
+tr -d "\15" <fin >fout
+```
+
 ## curlによるアクセス
 
 
