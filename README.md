@@ -439,6 +439,6 @@ echo "test ALL=(ALL) ALL " >> /etc/sudoers
 
 [Cap](https://syachineko.hatenablog.com/entry/2021/10/16/202928)
 
-Beep
+[Beep](https://syachineko.hatenablog.com/entry/2022/05/02/144623)
 
 Optimum
