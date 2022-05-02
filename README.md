@@ -448,7 +448,7 @@ tr -d "\15" <fin >fout
 [Devel](https://syachineko.hatenablog.com/entry/2020/06/27/230424)
 [Cap](https://syachineko.hatenablog.com/entry/2021/10/16/202928)
 [Beep](https://syachineko.hatenablog.com/entry/2022/05/02/144623)
-Optimum
+[Optimum](https://syachineko.hatenablog.com/entry/2022/05/03/000842)
 Popcorn
 Jerry
 Explore
