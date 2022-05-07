@@ -443,17 +443,17 @@ tr -d "\15" <fin >fout
 
 # WriteUp
 ## HackTheBox
-[Legacy](https://syachineko.hatenablog.com/entry/2020/06/21/163536)
-[Lame](https://syachineko.hatenablog.com/entry/2020/06/16/231952)
-[Devel](https://syachineko.hatenablog.com/entry/2020/06/27/230424)
-[Cap](https://syachineko.hatenablog.com/entry/2021/10/16/202928)
-[Beep](https://syachineko.hatenablog.com/entry/2022/05/02/144623)
-[Optimum](https://syachineko.hatenablog.com/entry/2022/05/03/000842)
-Popcorn
-Jerry
-Explore
-Privise
-Backdoor
-Netmon
-Bashed
+[Legacy](https://syachineko.hatenablog.com/entry/2020/06/21/163536)  
+[Lame](https://syachineko.hatenablog.com/entry/2020/06/16/231952)  
+[Devel](https://syachineko.hatenablog.com/entry/2020/06/27/230424)  
+[Cap](https://syachineko.hatenablog.com/entry/2021/10/16/202928)  
+[Beep](https://syachineko.hatenablog.com/entry/2022/05/02/144623)  
+[Optimum](https://syachineko.hatenablog.com/entry/2022/05/03/000842)  
+Popcorn  
+Jerry  
+Explore  
+Privise  
+Backdoor  
+Netmon  
+Bashed  
 
